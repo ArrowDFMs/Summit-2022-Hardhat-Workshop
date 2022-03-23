@@ -32,5 +32,8 @@ Check that the contract was deployed on testnet
 npx hardhat run .\scripts\get-price.ts --network testnet
 ```
 
+## Hardhat References for Functionality
+https://hardhat.org/hardhat-network/reference
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

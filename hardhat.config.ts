@@ -19,9 +19,15 @@ task("accounts", "Prints the list of accounts", async (args, hre) => {
 
 export default {
     solidity: "0.8.9",
+    
     networks: {
         testnet: {
             url: AVALANCHE_C_CHAIN_FUJI_TESTNET_RPC_URL,
+            accounts: ['0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'] // private key for public test account
+        },
+
+        mainnet: {
+            url: AVALANCHE_C_CHAIN_MAINNET_RPC_URL,
             accounts: ['0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'] // private key for public test account
         },
         localhost: {
@@ -37,6 +43,7 @@ export default {
             }
         }
     },
+    
     abiExporter: {
         path: "./abis",
         runOnCompile: true,

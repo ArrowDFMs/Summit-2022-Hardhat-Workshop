@@ -10,7 +10,6 @@ import {
 describe('Testing PercentOfPrice Contract', async () => {
     let signers: Signer[]
     let signerAddresses: String[]
-    let PercentOfPriceFactory: ContractFactory
     let percentOfPrice: Contract
     let WAVAXDecimals: number
     let priceFeed: Contract
@@ -21,7 +20,7 @@ describe('Testing PercentOfPrice Contract', async () => {
         signers = await ethers.getSigners()
         signerAddresses = await Promise.all(signers.map((signer) => signer.getAddress()))
 
-        PercentOfPriceFactory = await ethers.getContractFactory('PercentOfPrice')
+        const PercentOfPriceFactory = await ethers.getContractFactory('PercentOfPrice')
         percentOfPrice = await PercentOfPriceFactory.deploy()
 
         // mainnet: 0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7
