@@ -1,6 +1,7 @@
 import '@nomiclabs/hardhat-ethers'
 import '@nomiclabs/hardhat-waffle'
-import 'hardhat-abi-exporter';
+import 'hardhat-abi-exporter'
+import 'hardhat-gas-reporter'
 
 import { task } from 'hardhat/config'
 
@@ -40,7 +41,8 @@ export default {
             },
             accounts: {
                 count: 5
-            }
+            },
+            blockGasLimit: 8000000
         }
     },
     

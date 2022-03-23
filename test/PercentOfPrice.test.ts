@@ -2,7 +2,6 @@ import { expect } from 'chai'
 import { ethers } from 'hardhat'
 import {
     Signer,
-    ContractFactory,
     Contract,
     BigNumber
 } from 'ethers'

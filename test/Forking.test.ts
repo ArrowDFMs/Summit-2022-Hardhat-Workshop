@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { waffle, ethers, network } from 'hardhat'
+import { ethers, network } from 'hardhat'
 import {
     Contract
 } from 'ethers'
