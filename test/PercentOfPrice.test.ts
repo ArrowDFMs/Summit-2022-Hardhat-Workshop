@@ -6,9 +6,9 @@ import {
     BigNumber
 } from 'ethers'
 
+const TEN = ethers.BigNumber.from('10')
+
 describe('Testing PercentOfPrice Contract', async () => {
-    let signers: Signer[]
-    let signerAddresses: String[]
     let percentOfPrice: Contract
     let WAVAXDecimals: number
     let priceFeed: Contract
@@ -16,9 +16,6 @@ describe('Testing PercentOfPrice Contract', async () => {
     let spotPrice: BigNumber
     let formattedSpotPrice: string
     beforeEach(async () => {
-        signers = await ethers.getSigners()
-        signerAddresses = await Promise.all(signers.map((signer) => signer.getAddress()))
-
         const PercentOfPriceFactory = await ethers.getContractFactory('PercentOfPrice')
         percentOfPrice = await PercentOfPriceFactory.deploy()
 
@@ -36,11 +33,25 @@ describe('Testing PercentOfPrice Contract', async () => {
         expect(percentOfPrice.address).to.not.equal(ethers.constants.AddressZero)
     })
     it('gets expected percent of spot price', async () => {
-        const TEN = ethers.BigNumber.from('10')
         const ratePrecisionDecimals = await percentOfPrice.ratePrecisionDecimals()
         const percentage = ethers.utils.parseUnits('0.10', ratePrecisionDecimals)
         const pricePercent = await percentOfPrice.callStatic.getPercentOfSpotPrice(percentage)
         
+        /*
+            Steps to get from spotPrice in terms of priceFeedDecimals to percentage of spotPrice in terms of WAVAXDecimals:
+
+            WAVAXDecimals = 18
+            priceFeedDecimals = 8
+
+            spotPrice * 10^8 * percent * 10^8
+            spotPrice * percent * 10^16
+            spotPrice * percent * 10^16 / 10^8
+            spotPrice * percent * 10^8
+            spotPrice * percent * 10^8 * 10^(18-8)
+            spotPrice * percent * 10^8 * 10^10
+            spotPrice * percent * 10^18
+        */
+
         expect(pricePercent).to.equal(
             spotPrice.mul(percentage)
                      .div(TEN.pow(ratePrecisionDecimals))

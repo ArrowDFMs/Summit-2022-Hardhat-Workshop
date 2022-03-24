@@ -15,6 +15,8 @@ describe('Testing Gas Guzzler Functions', async () => {
         expect(gasGuzzler.address).to.not.equal(ethers.constants.AddressZero)
     })
     it('guzzles gas', async () => {
-        await gasGuzzler.guzzleGas()
+        for (let i = 0; i < 1; i++) {
+            await gasGuzzler.guzzleGas()
+        }
     })
 })

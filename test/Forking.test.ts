@@ -1,8 +1,6 @@
 import { expect } from 'chai'
 import { ethers, network } from 'hardhat'
-import {
-    Contract
-} from 'ethers'
+import { Contract } from 'ethers'
 
 describe('Testing Fork Functions', async () => {
     let USDC: Contract
@@ -39,12 +37,13 @@ describe('Testing Fork Functions', async () => {
 
         // Transfer from impersonated account to other account and check balances
         const amountToTransfer = ethers.utils.parseUnits('10000', usdcDecimals)
-        const usdcBalanceBefore = await USDC.balanceOf('0x2B522cABE9950D1153c26C1b399B293CaA99FcF9')
+        const otherAccount = ethers.utils.getAddress('0x2B522cABE9950D1153c26C1b399B293CaA99FcF9')
+        const usdcBalanceBefore = await USDC.balanceOf(otherAccount)
         await USDC.connect(signer).transfer(
-            '0x2B522cABE9950D1153c26C1b399B293CaA99FcF9',
+            otherAccount,
             amountToTransfer
         )
-        const usdcBalanceAfter = await USDC.balanceOf('0x2B522cABE9950D1153c26C1b399B293CaA99FcF9')
+        const usdcBalanceAfter = await USDC.balanceOf(otherAccount)
         expect(usdcBalanceAfter).to.equal(usdcBalanceBefore.add(amountToTransfer))
     })
 })
